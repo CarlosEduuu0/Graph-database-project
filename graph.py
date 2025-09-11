@@ -87,3 +87,7 @@ class Graph:
 
         v = self.vertices[name]
         return [edge.r_vertex for edge in v.out_edges]
+
+    def showGraph(self):
+        for vertex in self.vertices.values():
+            vertex.printAll()
