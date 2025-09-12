@@ -20,7 +20,7 @@ class Graph:
         v1 = self.vertices[from_vertex]
         v2 = self.vertices[to_vertex]
 
-        v1.connect(name=relation_name, vertex=v2)
+        v1.connect(relation_name=relation_name, vertex=v2)
 
     def updateVertex(self, name: str, new_properties: dict = None, new_name: str = None):
 
@@ -75,7 +75,7 @@ class Graph:
             v2.in_edges.remove(edge_to_remove)
 
     def getVertex(self, name: str) -> "Vertex":
-        return self.vertices.get(name)
+        return self.vertices.get(name).printAll()
 
     def getVertices(self, filter_fn=None):
 

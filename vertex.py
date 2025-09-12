@@ -7,9 +7,9 @@ class Vertex:
         self.in_edges:list[Edge] = []
         self.out_edges:list[Edge] = []
 
-    def connect(self,name:str, vertex: "Vertex"):
+    def connect(self, relation_name:str, vertex: "Vertex"):
 
-        edge = Edge(relation_name=name, from_vertex=self, to_vertex=vertex)
+        edge = Edge(relation_name=relation_name, from_vertex=self, to_vertex=vertex)
         self.out_edges.append(edge)
         vertex.in_edges.append(edge)
 
