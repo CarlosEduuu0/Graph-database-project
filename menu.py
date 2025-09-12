@@ -4,7 +4,7 @@ def menu():
     graph = Graph(name="meu grafo")
     while(True):
         print("===== Neo4j =====")
-        user_input = input("\n\n\n1) adicionar vertice\n2) conectar vertices\n3) atualizar vertices\n4) deletar vertice\n5) atualizar conexao\n6) desconectar vertices\n7) printar grafo\n\n\n")
+        user_input = input("\n\n\n1) adicionar vertice\n2) conectar vertices\n3) atualizar vertices\n4) deletar vertice\n5) atualizar conexao\n6) desconectar vertices\n7) printar grafo\n8) procurar vertice\n9) exibir vizinhos\n\n\n")
 
         if user_input == "sair":
             break
@@ -29,7 +29,8 @@ def menu():
             graph.connectVertices(relation_name=relation_name, from_vertex=from_vertex, to_vertex=to_vertex)
         elif user_input == "3":
             #TRATAR ERROS NO INTERPRETADOR
-
+            vertex_newName = None
+            vertex_newProperties = None
             vertex_name = input("digite o nome do vertice a ser atualizado\n")
             choice = input("digite 1 para atualizar o nome do vertice")
             if choice == "1":
@@ -44,8 +45,14 @@ def menu():
                     key = input("digite o nome da propriedade\n")
                     value = input("digite o valor da propriedade\n")
                     vertex_properties[key] = value
-            
-            graph.updateVertex(name=vertex_name, new_name=vertex_newName, new_properties= vertex_newProperties)
+            if vertex_newName and vertex_newProperties:
+                graph.updateVertex(name=vertex_name, new_name=vertex_newName, new_properties= vertex_newProperties)
+            elif vertex_newName:
+                graph.updateVertex(name=vertex_name, new_name=vertex_newName)
+            elif vertex_newProperties: 
+                graph.updateVertex(name=vertex_name, new_properties= vertex_newProperties)
+            else:
+                graph.updateVertex(name=vertex_name)
 
         elif user_input == "4":
             #TRATAR ERROS NO INTERPRETADOR
@@ -58,7 +65,7 @@ def menu():
             from_vertex = input("de qual vertice vem a conexao\n")
             to_vertex = input("qual vertice recebe a conexao\n")
             new_relation_name = input("qual sera o novo nome da relacao\n")
-            graph.updateRelation(from_vertex=from_vertex, to_vertex=to_vertex, relation_name = new_relation_name)
+            graph.updateRelation(from_vertex=from_vertex, to_vertex=to_vertex, new_name = new_relation_name)
         elif user_input == "6":
             #TRATAR ERROS NO INTERPRETADOR
 
@@ -67,8 +74,17 @@ def menu():
             graph.disconnect(from_vertex=from_vertex, to_vertex=to_vertex)
         elif user_input == "7":
             #TRATAR ERROS NO INTERPRETADOR
-            
-            graph.showGraph()
 
+            graph.showGraph()
+        elif user_input == "8":
+            #TRATAR ERROS NO INTERPRETADOR
+
+            vertex_name = input("digite o nome do vertice\n")
+            graph.getVertex(vertex_name)
+        elif user_input == "9":
+            #TRATAR ERROS NO INTERPRETADOR
+
+            vertex_name = input("digite o nome do vertice\n")
+            graph.getVertex(vertex_name)
 if __name__ == "__main__":
     menu()

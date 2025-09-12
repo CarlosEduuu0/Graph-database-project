@@ -77,12 +77,6 @@ class Graph:
     def getVertex(self, name: str) -> "Vertex":
         return self.vertices.get(name).printAll()
 
-    def getVertices(self, filter_fn=None):
-
-        if filter_fn:
-            return [v for v in self.vertices.values() if filter_fn(v)]
-        return list(self.vertices.values())
-
     def getNeighbors(self, name: str):
 
         v = self.vertices[name]
