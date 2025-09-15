@@ -1,0 +1,50 @@
+import re
+from graph import Graph
+
+class CypherInterpreter:
+
+    def __init__(self, graph: Graph):
+        self.graph = graph
+        self.alias = {} 
+
+    def execute(self, command: str):
+        command = command.strip()
+
+        match = re.match(r'CREATE\s*\((\w+):(\w+)\s*\{(.+?)\}\)', command, re.IGNORECASE)
+        if match:
+            alias, label, props = match.groups()
+            props_dict = self._parse_props(props)
+            node_id = props_dict.get("name", alias)
+            self.graph.addVertex(node_id, props_dict)
+            self.alias[alias] = node_id
+            print(f"Nó {node_id} ({label}) criado com props {props_dict}")
+            return 
+
+        match = re.match(r'CREATE\s*\((\w+)\)-\[:(\w+)\]->\((\w+)\)', command, re.IGNORECASE)
+        if match:
+            origin_alias, relation, destination_alias = match.groups()
+            from_vertex = self.alias.get(origin_alias)
+            to_vertex = self.alias.get(destination_alias)
+            self.graph.connectVertices(relation, from_vertex, to_vertex)
+            self.graph.vertices[from_vertex].printAll()
+            print(f"Aresta {relation} criada: {from_vertex} -> {to_vertex}")
+            return 
+
+        match = re.match(r'MATCH\s*\((\w+):?(\w+)?\)-\[:(\w+)\]->\((\w+):?(\w+)?\)\s*RETURN\s+(\w+)', command, re.IGNORECASE)
+        if match:
+            a, label_a, relation, b, label_b, ret = match.groups()
+            from_vertex = self.alias.get(a, a)
+            self.graph.vertices[from_vertex].printAll()
+            result = self.graph.getNeighborsByRelation(from_vertex, relation)
+            print(result)
+            return 
+
+        return f"command não reconhecido: {command}"
+
+    def _parse_props(self, props_str):
+        """Transforma 'name:\"Gabriel\", age:\"22\"' em dict Python"""
+        props = {}
+        for item in props_str.split(","):
+            k, v = item.split(":")
+            props[k.strip()] = v.strip().strip('"')
+        return props

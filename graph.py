@@ -1,4 +1,5 @@
 from vertex import Vertex
+import uuid
 
 class Graph:
 
@@ -77,10 +78,10 @@ class Graph:
     def getVertex(self, name: str) -> "Vertex":
         return self.vertices.get(name).printAll()
 
-    def getNeighbors(self, name: str):
+    def getNeighborsByRelation(self, from_vertex: str, relation_name:str):
 
-        v = self.vertices[name]
-        return [edge.r_vertex for edge in v.out_edges]
+        v = self.vertices[from_vertex]
+        return [edge.to_vertex for edge in v.out_edges if edge.relation_name == relation_name]
 
     def showGraph(self):
         for vertex in self.vertices.values():
