@@ -38,6 +38,13 @@ class CypherInterpreter:
             result = self.graph.getNeighborsByRelation(from_vertex, relation)
             print(result)
             return 
+        
+        save = re.match(r'SAVE\s*\(([^)]+)\)', command, re.IGNORECASE)
+        if save:
+            filename = save.group(1).strip()
+            if not filename.endswith('.json'):
+                filename += '.json'
+            self.graph.exportToJson(filename)
 
         return f"command não reconhecido: {command}"
 
