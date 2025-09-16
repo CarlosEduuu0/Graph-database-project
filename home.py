@@ -12,6 +12,7 @@ def loop(interpreter: CypherInterpreter):
         print('CREATE (b:City {name:"Belém"})')
         print('CREATE (a)-[:LIVES_IN]->(b)')
         print('MATCH (a:Person)-[:LIVES_IN]->(b:City) RETURN b')
+        print('SAVE (nome_do_arquivo)')
         print('Escreva "logout" para sair')
         print("============================================================")
         print("Insira um Comando CYPHER: ", end="")
