@@ -1,5 +1,6 @@
 from vertex import Vertex
 import json
+import os
 import uuid
 
 class Graph:
@@ -89,6 +90,10 @@ class Graph:
             vertex.printAll()
 
     def exportToJson(self, filename: str):
+        export_dir = "exports"
+        os.makedirs(export_dir, exist_ok=True)
+        filepath = os.path.join(export_dir, filename)
+
         data = {
             "vertices": [],
             "edges": []
@@ -107,7 +112,7 @@ class Graph:
                     "relation": edge.relation_name
                 })
 
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
 
-        print(f"Grafo exportado para {filename}")
+        print(f"Grafo exportado para {filepath}")

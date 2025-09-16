@@ -1,5 +1,8 @@
 import re
+import os
 from graph import Graph
+from colorama import Fore, Style, init
+import time
 
 class CypherInterpreter:
 
@@ -18,6 +21,7 @@ class CypherInterpreter:
             self.graph.addVertex(node_id, props_dict)
             self.alias[alias] = node_id
             print(f"Nó {node_id} ({label}) criado com props {props_dict}")
+            time.sleep(2)
             return 
 
         match = re.match(r'CREATE\s*\((\w+)\)-\[:(\w+)\]->\((\w+)\)', command, re.IGNORECASE)
@@ -28,6 +32,7 @@ class CypherInterpreter:
             self.graph.connectVertices(relation, from_vertex, to_vertex)
             self.graph.vertices[from_vertex].printAll()
             print(f"Aresta {relation} criada: {from_vertex} -> {to_vertex}")
+            time.sleep(2)
             return 
 
         match = re.match(r'MATCH\s*\((\w+):?(\w+)?\)-\[:(\w+)\]->\((\w+):?(\w+)?\)\s*RETURN\s+(\w+)', command, re.IGNORECASE)
@@ -37,6 +42,7 @@ class CypherInterpreter:
             self.graph.vertices[from_vertex].printAll()
             result = self.graph.getNeighborsByRelation(from_vertex, relation)
             print(result)
+            time.sleep(2)
             return 
         
         save = re.match(r'SAVE\s*\(([^)]+)\)', command, re.IGNORECASE)
@@ -45,8 +51,14 @@ class CypherInterpreter:
             if not filename.endswith('.json'):
                 filename += '.json'
             self.graph.exportToJson(filename)
+            return
 
-        return f"command não reconhecido: {command}"
+        init()
+        print(Fore.RED + f'\nERRO!!! Comando "{command}" não reconhecido' + Style.RESET_ALL)
+        
+        entrada = input(f"\nAperte Enter para continuar. . .")
+        if entrada == "":
+            os.system("cls")
 
     def _parse_props(self, props_str):
         """Transforma 'name:\"Gabriel\", age:\"22\"' em dict Python"""
