@@ -4,7 +4,7 @@ def menu():
     graph = Graph(name="meu grafo")
     while(True):
         print("===== Neo4j =====")
-        user_input = input("\n\n\n1) adicionar vertice\n2) conectar vertices\n3) atualizar vertices\n4) deletar vertice\n5) atualizar conexao\n6) desconectar vertices\n7) printar grafo\n8) procurar vertice\n9) exibir vizinhos\n\n\n")
+        user_input = input("\n\n\n1) adicionar vertice\n2) conectar vertices\n3) atualizar vertices\n4) deletar vertice\n5) atualizar conexao\n6) desconectar vertices\n7) printar grafo\n8) procurar vertice\n9)  exportar json\n10) exibir vizinhos\n\n\n")
 
         if user_input == "sair":
             break
