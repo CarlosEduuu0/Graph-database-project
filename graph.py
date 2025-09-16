@@ -100,12 +100,12 @@ class Graph:
                 "properties": v.properties
             })
 
-        for edge in v.out_edges:
-            data["edges"].append({
-                "from": v.name,
-                "to": edge.to_vertex.name,
-                "relation": edge.relation_name
-            })
+            for edge in v.out_edges:
+                data["edges"].append({
+                    "from": v.name,
+                    "to": edge.to_vertex.name,
+                    "relation": edge.relation_name
+                })
 
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
