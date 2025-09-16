@@ -13,7 +13,7 @@ O projeto a seguir corresponde a uma simples implementação de um banco de dado
 ├── edge.py  # Representa uma aresta entre dois vértices.
 ├── graph.py # Gerenciamento de vértices / conexões.
 ├── home.py # Script principal.
-├── menu.py # Inteface de menu iterativo.
+├── menu.py # Inteface de menu iterativo para testes.
 ├── vertex.py # Implementação do vértice do grafo.
 ├── LICENSE
 └── README.md
@@ -31,9 +31,11 @@ python home.py
 
 # 🎯 Funcionalidades
 
-- f1
-- f2
-- f3
+- Interpretador para comandos Cypher
+- CRUD para vértices e arestas
+- Menu para testes
+- Exportação do Grafo para Json
+- Menu interativo para testes
 
 # Equipe de Desenvolvimento
 
