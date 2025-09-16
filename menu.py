@@ -86,5 +86,9 @@ def menu():
 
             vertex_name = input("digite o nome do vertice\n")
             graph.getVertex(vertex_name)
+
+        elif user_input == "10":
+            graph.exportToJson('grafo.json')
+            
 if __name__ == "__main__":
     menu()
